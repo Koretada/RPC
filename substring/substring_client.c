@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     char *forbiddenSubstr1 = argv[2];
     char *forbiddenSubstr2 = argv[3];
     char *forbiddenSubstr3 = argv[4];
-    int maxLength = 100;
+    int maxLength = 10;
     char *generatedString;
 
     CLIENT *clnt = clnt_create(host, SUBSTRING, V1, "tcp");
