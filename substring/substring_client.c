@@ -6,8 +6,7 @@
 #include "substring.h"
 
 int main(int argc, char *argv[]) {
-    srand(time(NULL));
-
+    
     if (argc != 5) {
         printf("Utilisation : %s <SERVEUR_RPC> <sous-chaine interdite 1> <sous-chaine interdite 2> <sous-chaine interdite 3>\n", argv[0]);
         return 1;

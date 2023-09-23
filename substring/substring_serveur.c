@@ -48,6 +48,7 @@ bool_t * containsforbiddensubstr_1_svc(char *str, char *forbiddenSubstr1, char *
 }
 
 char **generaterandomstring_1_svc(int length, struct svc_req *rqstp) {
+    srand(time(NULL));
     char *result = (char *)malloc((length + 1) * sizeof(char));
     char charset[] = "abcdefghijklmnopqrstuvwxyz";
     int charsetLength = strlen(charset);
