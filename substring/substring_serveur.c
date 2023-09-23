@@ -59,7 +59,7 @@ char **generaterandomstring_1_svc(int length, struct svc_req *rqstp) {
 
     result[length] = '\0';
 
-    // Allouer et renvoyer un pointeur vers le résultat
+    // Allouer et renvoyer un pointeur vers le résultat pour contourner rpcgen
     char **p_result = (char **)malloc(sizeof(char *));
     *p_result = result;
 
