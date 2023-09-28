@@ -62,7 +62,7 @@ void * generate_string_without_substrings_1_svc(int length, char forbidden[3][4]
 
     // Générer chaque caractère de la chaîne finale
     for (int i = 0; i < length; i++) {
-        result[i] = generate_next_char_1_svc(result, i, forbidden, &rqstp);
+        result[i] = *(generate_next_char_1_svc(result, i, forbidden, &rqstp));
     }
     result[length] = '\0';  // Assurer que la chaîne est bien terminée
 }
