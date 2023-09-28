@@ -7,7 +7,7 @@
 #define ALPHABET_SIZE 26
 
 int *
-is_forbidden_substring_1_svc(string *temp, struct svc_req *rqstp) {
+is_forbidden_substring_1_svc(char **temp, struct svc_req *rqstp) {
     static int result;
     char forbidden[3][4] = {"abc", "def", "ghi"};
     
@@ -21,8 +21,8 @@ is_forbidden_substring_1_svc(string *temp, struct svc_req *rqstp) {
     return &result;
 }
 
-string *
-generate_next_char_1_svc(string *result_str, int *pos, StringArray *forbidden, struct svc_req *rqstp) {
+char **
+generate_next_char_1_svc(char **result_str, int *pos, StringArray *forbidden, struct svc_req *rqstp) {
     static char result_char[2];
     char alphabet[ALPHABET_SIZE] = "abcdefghijklmnopqrstuvwxyz";
     char temp[4];
@@ -54,37 +54,21 @@ generate_next_char_1_svc(string *result_str, int *pos, StringArray *forbidden, s
         if (!forbidden_check) {
             result_char[0] = alphabet[next_char_index];
             result_char[1] = '\0';
-            return result_char;
+            return &result_char;
         }
     }
 }
 
-string *
+char **
 generate_string_without_substrings_1_svc(int *length, StringArray *forbidden, struct svc_req *rqstp) {
     static char result[1024];
 
     srand(time(NULL));
 
     for (int i = 0; i < *length; i++) {
-        char *next_char = generate_next_char_1_svc(&result, &i, forbidden, rqstp);
+        char *next_char = *generate_next_char_1_svc(&result, &i, forbidden, rqstp);
         result[i] = next_char[0];
     }
     result[*length] = '\0';
     return &result;
 }
-
-
-// int main() {
-//     // Définir les sous-chaînes interdites
-//     char forbidden[3][4] = {"abc", "def", "ghi"};
-//     char result[21];  // Chaîne finale à générer
-//     int length = 20;
-
-//     // Générer la chaîne finale
-//     generate_string_without_substrings_1_svc(length, forbidden, result);
-
-//     // Afficher la chaîne finale
-//     printf("%s\n", result);
-
-//     return 0;
-// }
