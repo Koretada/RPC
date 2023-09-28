@@ -54,3 +54,6 @@ dkms.conf
 # Binaries 
 substring_serveur
 substring_client
+.vscode/c_cpp_properties.json
+substring/test
+substring/test.c
