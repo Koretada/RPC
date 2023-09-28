@@ -11,11 +11,11 @@ int * is_forbidden_substring_1_svc(char* temp, char forbidden[3][4], struct svc_
     for (int j = 0; j < 3; j++) {
         // Si la sous-chaîne est trouvée, retourner 1
         if (strstr(temp, forbidden[j]) != NULL) {
-            return 1;  
+            return (int *) 1;  
         }
     }
     // Si aucune sous-chaîne interdite n'est trouvée, retourner 0
-    return 0;  
+    return (int *) 0;  
 }
 
 // Fonction pour générer le prochain caractère de la chaîne finale
@@ -49,8 +49,10 @@ char * generate_next_char_1_svc(char* result, int i, char forbidden[3][4], struc
         temp[end + 1] = '\0';  // Assurer que la chaîne est bien terminée
 
         // Si la chaîne temporaire n'est pas interdite, sortir de la boucle
-        if (!is_forbidden_substring_1_svc(temp, forbidden, &rqstp)) {
-            return alphabet[next_char_index];
+        if (!is_forbidden_substring_1_svc(temp, forbidden, rqstp)) {
+            char *ptr = (char*) malloc(sizeof(char));
+            *ptr = alphabet[next_char_index];
+            return ptr;
         }
     }
 }
@@ -62,7 +64,7 @@ void * generate_string_without_substrings_1_svc(int length, char forbidden[3][4]
 
     // Générer chaque caractère de la chaîne finale
     for (int i = 0; i < length; i++) {
-        result[i] = *(generate_next_char_1_svc(result, i, forbidden, &rqstp));
+        result[i] = *(generate_next_char_1_svc(result, i, forbidden, rqstp));
     }
     result[length] = '\0';  // Assurer que la chaîne est bien terminée
 }
