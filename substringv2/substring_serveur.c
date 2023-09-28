@@ -6,8 +6,7 @@
 
 #define ALPHABET_SIZE 26
 
-int *
-is_forbidden_substring_1_svc(char **temp, struct svc_req *rqstp) {
+int * is_forbidden_substring_1_svc(char **temp, struct svc_req *rqstp) {
     static int result;
     char forbidden[3][4] = {"abc", "def", "ghi"};
     
@@ -21,8 +20,7 @@ is_forbidden_substring_1_svc(char **temp, struct svc_req *rqstp) {
     return &result;
 }
 
-char **
-generate_next_char_1_svc(char **result_str, int *pos, StringArray *forbidden, struct svc_req *rqstp) {
+char ** generate_next_char_1_svc(char **result_str, int *pos, StringArray *forbidden, struct svc_req *rqstp) {
     static char result_char[2];
     char alphabet[ALPHABET_SIZE] = "abcdefghijklmnopqrstuvwxyz";
     char temp[4];
@@ -59,8 +57,7 @@ generate_next_char_1_svc(char **result_str, int *pos, StringArray *forbidden, st
     }
 }
 
-char **
-generate_string_without_substrings_1_svc(int *length, StringArray *forbidden, struct svc_req *rqstp) {
+char ** generate_string_without_substrings_1_svc(int *length, StringArray *forbidden, struct svc_req *rqstp) {
     static char result[1024];
 
     srand(time(NULL));
