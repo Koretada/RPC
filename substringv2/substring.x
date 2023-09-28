@@ -3,7 +3,7 @@
  */
 
 struct StringArray {
-    string forbidden_strings[3];
+    string forbidden_strings<3>;
 };
 
 program SUBSTRING {

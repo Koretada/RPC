@@ -17,28 +17,28 @@
 #endif
 
 static int *
-_is_forbidden_substring_1 (is_forbidden_substring_1_argument *argp, struct svc_req *rqstp)
+_is_forbidden_substring_1 (char * *argp, struct svc_req *rqstp)
 {
-	return (is_forbidden_substring_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (is_forbidden_substring_1_svc(*argp, rqstp));
 }
 
-static char *
+static char **
 _generate_next_char_1 (generate_next_char_1_argument *argp, struct svc_req *rqstp)
 {
 	return (generate_next_char_1_svc(argp->arg1, argp->arg2, argp->arg3, rqstp));
 }
 
-static void *
+static char **
 _generate_string_without_substrings_1 (generate_string_without_substrings_1_argument *argp, struct svc_req *rqstp)
 {
-	return (generate_string_without_substrings_1_svc(argp->arg1, argp->arg2, argp->arg3, rqstp));
+	return (generate_string_without_substrings_1_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static void
 substring_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		is_forbidden_substring_1_argument is_forbidden_substring_1_arg;
+		char *is_forbidden_substring_1_arg;
 		generate_next_char_1_argument generate_next_char_1_arg;
 		generate_string_without_substrings_1_argument generate_string_without_substrings_1_arg;
 	} argument;
@@ -52,20 +52,20 @@ substring_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		return;
 
 	case is_forbidden_substring:
-		_xdr_argument = (xdrproc_t) xdr_is_forbidden_substring_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_wrapstring;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) _is_forbidden_substring_1;
 		break;
 
 	case generate_next_char:
 		_xdr_argument = (xdrproc_t) xdr_generate_next_char_1_argument;
-		_xdr_result = (xdrproc_t) xdr_char;
+		_xdr_result = (xdrproc_t) xdr_wrapstring;
 		local = (char *(*)(char *, struct svc_req *)) _generate_next_char_1;
 		break;
 
 	case generate_string_without_substrings:
 		_xdr_argument = (xdrproc_t) xdr_generate_string_without_substrings_1_argument;
-		_xdr_result = (xdrproc_t) xdr_void;
+		_xdr_result = (xdrproc_t) xdr_wrapstring;
 		local = (char *(*)(char *, struct svc_req *)) _generate_string_without_substrings_1;
 		break;
 
