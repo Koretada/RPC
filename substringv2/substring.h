@@ -16,20 +16,20 @@ extern "C" {
 
 struct is_forbidden_substring_1_argument {
 	char *arg1;
-	char *arg2;
+	char **arg2;
 };
 typedef struct is_forbidden_substring_1_argument is_forbidden_substring_1_argument;
 
 struct generate_next_char_1_argument {
 	char *arg1;
 	int arg2;
-	char *arg3;
+	char **arg3;
 };
 typedef struct generate_next_char_1_argument generate_next_char_1_argument;
 
 struct generate_string_without_substrings_1_argument {
 	int arg1;
-	char arg2;
+	char **arg2;
 	char *arg3;
 };
 typedef struct generate_string_without_substrings_1_argument generate_string_without_substrings_1_argument;
@@ -46,7 +46,7 @@ extern  char * generate_next_char_1(char *, int , char **, CLIENT *);
 extern  char * generate_next_char_1_svc(char *, int , char **, struct svc_req *);
 #define generate_string_without_substrings 3
 extern  void * generate_string_without_substrings_1(int , char **, char *, CLIENT *);
-extern  void * generate_string_without_substrings_1_svc(int , char , char ***, struct svc_req *);
+extern  void * generate_string_without_substrings_1_svc(int , char** , char *, struct svc_req *);
 extern int substring_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
