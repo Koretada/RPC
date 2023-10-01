@@ -57,3 +57,5 @@ substring_client
 .vscode/c_cpp_properties.json
 substring/test
 substring/test.c
+substringv2/client
+substringv2/serveur

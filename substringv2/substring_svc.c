@@ -17,28 +17,28 @@
 #endif
 
 static int *
-_is_forbidden_substring_1 (char * *argp, struct svc_req *rqstp)
+_is_forbidden_substring_1 (is_forbidden_substring_1_argument *argp, struct svc_req *rqstp)
 {
-	return (is_forbidden_substring_1_svc(*argp, rqstp));
+	return (is_forbidden_substring_1_svc(argp->arg1, argp->arg2, argp->arg3, argp->arg4, rqstp));
 }
 
 static char **
 _generate_next_char_1 (generate_next_char_1_argument *argp, struct svc_req *rqstp)
 {
-	return (generate_next_char_1_svc(argp->arg1, argp->arg2, argp->arg3, rqstp));
+	return (generate_next_char_1_svc(argp->arg1, argp->arg2, argp->arg3, argp->arg4, argp->arg5, rqstp));
 }
 
 static char **
 _generate_string_without_substrings_1 (generate_string_without_substrings_1_argument *argp, struct svc_req *rqstp)
 {
-	return (generate_string_without_substrings_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (generate_string_without_substrings_1_svc(argp->arg1, argp->arg2, argp->arg3, argp->arg4, rqstp));
 }
 
 static void
-substring_1(struct svc_req *rqstp, register SVCXPRT *transp)
+string_generator_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		char *is_forbidden_substring_1_arg;
+		is_forbidden_substring_1_argument is_forbidden_substring_1_arg;
 		generate_next_char_1_argument generate_next_char_1_arg;
 		generate_string_without_substrings_1_argument generate_string_without_substrings_1_arg;
 	} argument;
@@ -52,7 +52,7 @@ substring_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		return;
 
 	case is_forbidden_substring:
-		_xdr_argument = (xdrproc_t) xdr_wrapstring;
+		_xdr_argument = (xdrproc_t) xdr_is_forbidden_substring_1_argument;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) _is_forbidden_substring_1;
 		break;
@@ -94,15 +94,15 @@ main (int argc, char **argv)
 {
 	register SVCXPRT *transp;
 
-	pmap_unset (SUBSTRING, V1);
+	pmap_unset (STRING_GENERATOR, STRING_GENERATOR_V1);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, SUBSTRING, V1, substring_1, IPPROTO_UDP)) {
-		fprintf (stderr, "%s", "unable to register (SUBSTRING, V1, udp).");
+	if (!svc_register(transp, STRING_GENERATOR, STRING_GENERATOR_V1, string_generator_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (STRING_GENERATOR, STRING_GENERATOR_V1, udp).");
 		exit(1);
 	}
 
@@ -111,8 +111,8 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, SUBSTRING, V1, substring_1, IPPROTO_TCP)) {
-		fprintf (stderr, "%s", "unable to register (SUBSTRING, V1, tcp).");
+	if (!svc_register(transp, STRING_GENERATOR, STRING_GENERATOR_V1, string_generator_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (STRING_GENERATOR, STRING_GENERATOR_V1, tcp).");
 		exit(1);
 	}
 

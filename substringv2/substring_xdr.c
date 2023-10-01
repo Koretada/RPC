@@ -6,11 +6,15 @@
 #include "substring.h"
 
 bool_t
-xdr_StringArray (XDR *xdrs, StringArray *objp)
+xdr_is_forbidden_substring_1_argument (XDR *xdrs, is_forbidden_substring_1_argument *objp)
 {
-	register int32_t *buf;
-
-	 if (!xdr_string (xdrs, &objp->forbidden_strings, 3))
+	 if (!xdr_string (xdrs, &objp->arg1, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->arg2, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->arg3, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->arg4, ~0))
 		 return FALSE;
 	return TRUE;
 }
@@ -20,9 +24,13 @@ xdr_generate_next_char_1_argument (XDR *xdrs, generate_next_char_1_argument *obj
 {
 	 if (!xdr_string (xdrs, &objp->arg1, ~0))
 		 return FALSE;
-	 if (!xdr_int (xdrs, &objp->arg2))
+	 if (!xdr_string (xdrs, &objp->arg2, ~0))
 		 return FALSE;
-	 if (!xdr_StringArray (xdrs, &objp->arg3))
+	 if (!xdr_string (xdrs, &objp->arg3, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->arg4, ~0))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->arg5))
 		 return FALSE;
 	return TRUE;
 }
@@ -32,7 +40,11 @@ xdr_generate_string_without_substrings_1_argument (XDR *xdrs, generate_string_wi
 {
 	 if (!xdr_int (xdrs, &objp->arg1))
 		 return FALSE;
-	 if (!xdr_StringArray (xdrs, &objp->arg2))
+	 if (!xdr_string (xdrs, &objp->arg2, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->arg3, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->arg4, ~0))
 		 return FALSE;
 	return TRUE;
 }

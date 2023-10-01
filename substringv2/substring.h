@@ -14,38 +14,45 @@ extern "C" {
 #endif
 
 
-struct StringArray {
-	char *forbidden_strings;
+struct is_forbidden_substring_1_argument {
+	char *arg1;
+	char *arg2;
+	char *arg3;
+	char *arg4;
 };
-typedef struct StringArray StringArray;
+typedef struct is_forbidden_substring_1_argument is_forbidden_substring_1_argument;
 
 struct generate_next_char_1_argument {
 	char *arg1;
-	int arg2;
-	StringArray arg3;
+	char *arg2;
+	char *arg3;
+	char *arg4;
+	int arg5;
 };
 typedef struct generate_next_char_1_argument generate_next_char_1_argument;
 
 struct generate_string_without_substrings_1_argument {
 	int arg1;
-	StringArray arg2;
+	char *arg2;
+	char *arg3;
+	char *arg4;
 };
 typedef struct generate_string_without_substrings_1_argument generate_string_without_substrings_1_argument;
 
-#define SUBSTRING 0x12345678
-#define V1 1
+#define STRING_GENERATOR 0x20000001
+#define STRING_GENERATOR_V1 1
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define is_forbidden_substring 1
-extern  int * is_forbidden_substring_1(char *, CLIENT *);
-extern  int * is_forbidden_substring_1_svc(char *, struct svc_req *);
+extern  int * is_forbidden_substring_1(char *, char *, char *, char *, CLIENT *);
+extern  int * is_forbidden_substring_1_svc(char *, char *, char *, char *, struct svc_req *);
 #define generate_next_char 2
-extern  char ** generate_next_char_1(char *, int , StringArray , CLIENT *);
-extern  char ** generate_next_char_1_svc(char *, int , StringArray , struct svc_req *);
+extern  char ** generate_next_char_1(char *, char *, char *, char *, int , CLIENT *);
+extern  char ** generate_next_char_1_svc(char *, char *, char *, char *, int , struct svc_req *);
 #define generate_string_without_substrings 3
-extern  char ** generate_string_without_substrings_1(int , StringArray , CLIENT *);
-extern  char ** generate_string_without_substrings_1_svc(int , StringArray , struct svc_req *);
-extern int substring_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+extern  char ** generate_string_without_substrings_1(int , char *, char *, char *, CLIENT *);
+extern  char ** generate_string_without_substrings_1_svc(int , char *, char *, char *, struct svc_req *);
+extern int string_generator_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define is_forbidden_substring 1
@@ -57,18 +64,18 @@ extern  char ** generate_next_char_1_svc();
 #define generate_string_without_substrings 3
 extern  char ** generate_string_without_substrings_1();
 extern  char ** generate_string_without_substrings_1_svc();
-extern int substring_1_freeresult ();
+extern int string_generator_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_StringArray (XDR *, StringArray*);
+extern  bool_t xdr_is_forbidden_substring_1_argument (XDR *, is_forbidden_substring_1_argument*);
 extern  bool_t xdr_generate_next_char_1_argument (XDR *, generate_next_char_1_argument*);
 extern  bool_t xdr_generate_string_without_substrings_1_argument (XDR *, generate_string_without_substrings_1_argument*);
 
 #else /* K&R C */
-extern bool_t xdr_StringArray ();
+extern bool_t xdr_is_forbidden_substring_1_argument ();
 extern bool_t xdr_generate_next_char_1_argument ();
 extern bool_t xdr_generate_string_without_substrings_1_argument ();
 
